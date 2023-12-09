@@ -1,7 +1,5 @@
 import './App.css'
 
-import React from 'react';
-
 const Header = ({ course }) => {
   return (
     <h1>{course}</h1>
