@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant browser
+    participant spaServer
+    participant apiServer
+    participant database
+
+    Note right of browser: User interacts with the SPA, writes a new note, and clicks Save
+
+    browser->>spaServer: User interaction (create new note)
+    activate spaServer
+    spaServer->>apiServer: API Request (e.g., POST /api/notes)
+    activate apiServer
+    apiServer->>database: Save new note to the database
+    activate database
+    database-->>apiServer: Confirmation of successful addition
+    deactivate database
+    apiServer-->>spaServer: Confirmation of successful addition
+    deactivate apiServer
+    spaServer-->>browser: Confirmation of successful addition
+    deactivate spaServer
