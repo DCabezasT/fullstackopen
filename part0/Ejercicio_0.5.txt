@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant browser
+    participant spaServer
+    participant apiServer
+    participant database
+
+    browser->>spaServer: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate spaServer
+    spaServer-->>browser: HTML, CSS, JavaScript for SPA
+    deactivate spaServer
+
+    Note right of browser: The SPA is loaded, and the user interacts with the page.
+
+    browser->>apiServer: API Request (e.g., GET /api/notes)
+    activate apiServer
+    apiServer->>database: Retrieve notes from the database
+    activate database
+    database-->>apiServer: Notes data
+    deactivate database
+    apiServer-->>browser: Notes data in JSON format
+    deactivate apiServer
+
+    Note right of browser: The SPA dynamically renders notes using JavaScript.
+
+    browser->>apiServer: API Request (e.g., POST /api/notes)
+    activate apiServer
+    apiServer->>database: Save new note to the database
+    activate database
+    database-->>apiServer: Confirmation of successful addition
+    deactivate database
+    apiServer-->>browser: Confirmation of successful addition
+    deactivate apiServer
