@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant browser
+    participant server
+    participant database
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    Note right of browser: User interacts with the page, writes a new note, and clicks Save
+
+    browser->>browser: Capture user input (new note content)
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server->>database: Add new note to the database
+    activate database
+    database-->>server: Confirmation of successful addition
+    deactivate database
+    server-->>browser: Confirmation of successful addition
+    deactivate server
+
+    Note right of browser: The browser may update the UI to reflect the new note
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes (refresh)
+    activate server
+    server-->>browser: Updated HTML document with the new note
+    deactivate server
