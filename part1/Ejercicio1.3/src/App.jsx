@@ -2,32 +2,6 @@ import './App.css'
 
 import React from 'react';
 
-const Part = ({ part, exercises }) => {
-  return (
-    <p>
-      {part} {exercises}
-    </p>
-  );
-};
-
-const Content = ({ parts }) => {
-  return (
-    <div>
-      {parts.map((part, index) => (
-        <Part key={index} part={part.name} exercises={part.exercises} />
-      ))}
-    </div>
-  );
-};
-
-const Total = ({ exercises1, exercises2, exercises3 }) => {
-  const totalExercises = exercises1 + exercises2 + exercises3;
-  return (
-    <p>Number of exercises {totalExercises}</p>
-  );
-};
-
-
 const App = () => {
   const course = 'Half Stack application development';
   const parts = [
