@@ -59,6 +59,7 @@ const App = () => {
 
   return (
     <div>
+      <table>
       <h1>Give Feedback</h1>
       <Button handleClick={handleGoodClick} text="Good" />
       <Button handleClick={handleNeutralClick} text="Neutral" />
@@ -67,6 +68,7 @@ const App = () => {
       <br />
       <h1>Statistics</h1>
       <Statistics good={good} neutral={neutral} bad={bad} allComents={allComents} />
+      </table>
     </div>
   );
 };
