@@ -8,8 +8,14 @@ const Button = ({ handleClick, text }) => (
 
 const Statistics = ({ good, neutral, bad, allComents }) => {
   const totalScore = good - bad;
+
+  // Verificar si hay al menos un comentario antes de mostrar las estadísticas
+  if (allComents === 0) {
+    return <p>No feedback given yet.</p>;
+  }
+
   const calculateAverage = () => (allComents === 0 ? 0 : totalScore / allComents);
-  const calculatePositivePercentage = () => (allComents === 0 ? 0 : (good / allComents) * 100);
+  const calculatePositivePercentage = () => (good / allComents) * 100;
 
   return (
     <div>
