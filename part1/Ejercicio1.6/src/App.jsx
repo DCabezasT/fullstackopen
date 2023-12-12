@@ -2,14 +2,23 @@
 import './App.css'
 import React, { useState } from 'react';
 
+// Componente Button
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
+// Componente StatisticLine
+const StatisticLine = ({ text, value }) => (
+  <p>
+    {text}: {value}
+  </p>
+);
+
+
 const Statistics = ({ good, neutral, bad, allComents }) => {
   const totalScore = good - bad;
 
-  // Verificar si hay al menos un comentario antes de mostrar las estadísticas
+
   if (allComents === 0) {
     return <p>No feedback given yet.</p>;
   }
@@ -19,12 +28,12 @@ const Statistics = ({ good, neutral, bad, allComents }) => {
 
   return (
     <div>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>All: {allComents}</p>
-      <p>Average: {calculateAverage().toFixed(2)}</p>
-      <p>Positive: {calculatePositivePercentage().toFixed(2)}%</p>
+      <StatisticLine text="Good" value={good} />
+      <StatisticLine text="Neutral" value={neutral} />
+      <StatisticLine text="Bad" value={bad} />
+      <StatisticLine text="All" value={allComents} />
+      <StatisticLine text="Average" value={calculateAverage().toFixed(2)} />
+      <StatisticLine text="Positive" value={`${calculatePositivePercentage().toFixed(2)}%`} />
     </div>
   );
 };
@@ -51,9 +60,9 @@ const App = () => {
   return (
     <div>
       <h1>Give Feedback</h1>
-      <Button handleClick={handleGoodClick} text='Good' />
-      <Button handleClick={handleNeutralClick} text='Neutral' />
-      <Button handleClick={handleBadClick} text='Bad' />
+      <Button handleClick={handleGoodClick} text="Good" />
+      <Button handleClick={handleNeutralClick} text="Neutral" />
+      <Button handleClick={handleBadClick} text="Bad" />
       <br />
       <br />
       <h1>Statistics</h1>
