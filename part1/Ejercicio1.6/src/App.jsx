@@ -1,6 +1,5 @@
-
-import './App.css'
 import React, { useState } from 'react';
+import './App.css';
 
 // Componente Button
 const Button = ({ handleClick, text }) => (
@@ -9,31 +8,57 @@ const Button = ({ handleClick, text }) => (
 
 // Componente StatisticLine
 const StatisticLine = ({ text, value }) => (
-  <p>
-    {text}: {value}
-  </p>
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 );
-
 
 const Statistics = ({ good, neutral, bad, allComents }) => {
   const totalScore = good - bad;
-
-
-  if (allComents === 0) {
-    return <p>No feedback given yet.</p>;
-  }
 
   const calculateAverage = () => (allComents === 0 ? 0 : totalScore / allComents);
   const calculatePositivePercentage = () => (good / allComents) * 100;
 
   return (
+    <>
+      <h1>Statistics</h1>
+      <table>
+        <tbody>
+          <StatisticLine text="Good" value={good} />
+          <StatisticLine text="Neutral" value={neutral} />
+          <StatisticLine text="Bad" value={bad} />
+          <StatisticLine text="All" value={allComents} />
+          <StatisticLine text="Average" value={calculateAverage().toFixed(2)} />
+          <StatisticLine text="Positive" value={`${calculatePositivePercentage().toFixed(2)}%`} />
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+const Anecdotes = () => {
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+    'The only way to go fast is to go well.'
+  ];
+
+  const [selected, setSelected] = useState(0);
+
+  return (
     <div>
-      <StatisticLine text="Good" value={good} />
-      <StatisticLine text="Neutral" value={neutral} />
-      <StatisticLine text="Bad" value={bad} />
-      <StatisticLine text="All" value={allComents} />
-      <StatisticLine text="Average" value={calculateAverage().toFixed(2)} />
-      <StatisticLine text="Positive" value={`${calculatePositivePercentage().toFixed(2)}%`} />
+      <h1>Anecdote</h1>
+      <p>{anecdotes[selected]}</p>
+      <Button
+        handleClick={() => setSelected((selected + 1) % anecdotes.length)}
+        text="Next Anecdote"
+      />
     </div>
   );
 };
@@ -60,14 +85,28 @@ const App = () => {
   return (
     <div>
       <table>
-      <h1>Give Feedback</h1>
-      <Button handleClick={handleGoodClick} text="Good" />
-      <Button handleClick={handleNeutralClick} text="Neutral" />
-      <Button handleClick={handleBadClick} text="Bad" />
-      <br />
-      <br />
-      <h1>Statistics</h1>
-      <Statistics good={good} neutral={neutral} bad={bad} allComents={allComents} />
+        <tbody>
+          <tr>
+            <td>
+              <h1>Give Feedback</h1>
+              <Button handleClick={handleGoodClick} text="Good" />
+              <Button handleClick={handleNeutralClick} text="Neutral" />
+              <Button handleClick={handleBadClick} text="Bad" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Anecdotes />
+            </td>
+          </tr>
+          {allComents > 0 && (
+            <tr>
+              <td>
+                <Statistics good={good} neutral={neutral} bad={bad} allComents={allComents} />
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );
